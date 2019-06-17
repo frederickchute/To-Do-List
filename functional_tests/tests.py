@@ -6,7 +6,7 @@ from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.keys import Keys
 
-MAX_WAIT = 2
+MAX_WAIT = 5
 
 class NewVisitorTest(LiveServerTestCase):
 
@@ -65,8 +65,6 @@ class NewVisitorTest(LiveServerTestCase):
         inputbox.send_keys(Keys.ENTER)
 
         # The page updates again, and now shows both items on her list
-        table = self.browser.find_element_by_id('id_list_table')
-        rows = table.find_elements_by_tag_name('tr')
         self.wait_for_row_in_list_table('2: Use peacock feathers to make a fly')      
         self.wait_for_row_in_list_table('1: Buy peacock feathers')
 
@@ -88,8 +86,8 @@ class NewVisitorTest(LiveServerTestCase):
 
         ## We use a new browser session to make sure that no information
         ## of Edith's is coming through from cookies etc
-        self.browser.quite()
-        self.browser = webdriver.FireFox()
+        self.browser.quit()
+        self.browser = webdriver.Firefox()
 
         # Francis visits the home page.  There is no sign of Edith's
         # list
