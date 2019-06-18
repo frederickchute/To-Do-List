@@ -18,14 +18,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '^%m%$@9k(2c&1)wcz(!ay%k13__j+hh6jgcjkor0k0+o_p1gcn'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['*']
+if 'DJANGO_DEBUG_FALSE' in os.environ:
+    DEBUG = FALSE
+    SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
+    ALLOWED_HOSTS = [os.environ['SITENAME']]
+else:
+    SECRET_KEY = '^%m%$@9k(2c&1)wcz(!ay%k13__j+hh6jgcjkor0k0+o_p1gcn'
+    DEBUG = True
+    ALLOWED_HOSTS = []
 
 
 # Application definition
