@@ -1,9 +1,9 @@
 [Unit]
-Description=Gunicorn server for Domian
+Description=Gunicorn server for DOMAIN
 
 [Service]
 Restart=on-failure
-User=Fred
+User=fred
 WorkingDirectory=/home/fred/sites/DOMAIN
 EnvironmentFile=/home/fred/sites/DOMAIN/.env
 
