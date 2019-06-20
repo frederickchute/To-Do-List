@@ -49,3 +49,22 @@ set -a; source .env; set +a
 sudo systemctl daemon-reload
 sudo systemctl enable gunicorn-site.com
 sudo systemctl start gunicorn-site.com
+
+~/.ssh/config
+Host *
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_rsa
+  ssh-add -K ~/.ssh/id_rsa
+Deployment commands
+Local:
+git push
+fab deploy:host=fred@list.frederickchute.com
+From project directory
+cat ./deploy_tools/nginx.template.conf | sed "s/DOMAIN/list.frederickchute.com/g" | sudo tee /etc/nginx/sites-available/list.frederickchute.com
+sudo ln -s /etc/nginx/sites-available/list.frederickchute.com /etc/nginx/sites-enabled/list.frederickchute.com
+cat ./deploy_tools/gunicorn-systemd.template.service | sed "s/DOMAIN/list.frederickchute.com/g" | sudo tee /etc/systemd/system/gunicorn-list.frederickchute.com.service
+sudo systemctl daemon-reload
+sudo systemctl reload nginx
+sudo systemctl enable gunicorn-list.frederickchute.com
+sudo systemctl start gunicorn-list.frederickchute.com
