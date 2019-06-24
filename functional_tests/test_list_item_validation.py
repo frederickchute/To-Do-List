@@ -1,5 +1,4 @@
 from selenium.webdriver.common.keys import Keys
-from unittest import skip
 
 from .base import FunctionalTest
 
